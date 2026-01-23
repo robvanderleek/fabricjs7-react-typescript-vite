@@ -1,11 +1,52 @@
 .main {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    /*justify-content: center;*/
+    align-items: flex-start;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: flex-start;
+}
+
+.sidebar label {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+.sidebar input[type="radio"] {
+    display: none;
+}
+
+.sidebar span {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 3px;
+    color: black;
+}
+
+.sidebar input[type="radio"]:checked + span {
+    background-color: lightgray;
+    color: black;
 }
 
 #myCanvas {
-  border: solid;
+    border: solid;
 }
