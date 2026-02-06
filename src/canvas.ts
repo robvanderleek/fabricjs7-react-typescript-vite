@@ -88,22 +88,19 @@ export function handleMouseMovePolyLine(canvas: Canvas, event: TPointerEventInfo
 }
 
 export function handleMouseDoubleClickPolyLine(canvas: Canvas, activeShape: RefObject<FabricObject | undefined>) {
-    const poly = activeShape.current as Polygon;
-    poly.setCoords();
-    canvas.remove(poly);
-    const polygonPoints = poly.points.slice(0, poly.points.length - 2);
-    console.log('Polygon points:', polygonPoints);
-    const poly2 = new Polygon(poly.points.slice(0, poly.points.length - 2), {
+    const polyline = activeShape.current as Polyline;
+    canvas.remove(polyline);
+    const polygon = new Polygon(polyline.points.slice(0, polyline.points.length - 2), {
         stroke: 'red',
         fill: 'lightgray',
         selectable: true,
         hasControls: true,
         strokeWidth: 2,
     });
-    poly2.cornerStyle = 'circle';
-    poly2.cornerColor = 'rgba(0,0,255,0.5)';
-    poly2.hasBorders = true;
-    poly2.controls = controlsUtils.createPolyControls(poly2);
-    addObjectToCanvas(canvas, poly2);
+    polygon.cornerStyle = 'circle';
+    polygon.cornerColor = 'rgba(0,0,255,0.5)';
+    polygon.hasBorders = true;
+    polygon.controls = controlsUtils.createPolyControls(polygon);
+    addObjectToCanvas(canvas, polygon);
     activeShape.current = undefined;
 }

@@ -7,7 +7,7 @@ import {
     handleMouseDownPolyLine,
     handleMouseDownRectangle,
     handleMouseMovePolyLine
-} from "./drawing-utils.ts";
+} from "./canvas.ts";
 
 export default function App() {
     const [selectedShapeType, setSelectedShapeType] = useState<string | undefined>(undefined);
@@ -88,6 +88,12 @@ export default function App() {
         setSelectedShapeType(e.target.value);
     }
 
+    const clearCanvas = () => {
+        if (canvasRef.current) {
+            canvasRef.current.clear();
+        }
+    }
+
     const renderShapeButton = (shapeType: string) => {
         return (
             <label>
@@ -103,9 +109,14 @@ export default function App() {
             <div className="container">
                 <canvas id="myCanvas"/>
                 <div className="sidebar">
-                    {renderShapeButton('circle')}
-                    {renderShapeButton('rectangle')}
-                    {renderShapeButton('polygon')}
+                    <div className="shapes">
+                        {renderShapeButton('circle')}
+                        {renderShapeButton('rectangle')}
+                        {renderShapeButton('polygon')}
+                    </div>
+                    <div className="actions">
+                        <span onClick={clearCanvas}>clear</span>
+                    </div>
                 </div>
             </div>
         </div>
