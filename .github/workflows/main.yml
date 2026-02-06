@@ -30,5 +30,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
-        username: "Rob van der Leek"
-        useremail: "robvanderleek@gmail.com"
