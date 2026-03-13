@@ -22,6 +22,13 @@ export default function App() {
         }
     }, []);
 
+    const deleteSelectedObjects = () => {
+        const canvas = canvasRef.current as Canvas;
+        for (const obj of canvas.getActiveObjects()) {
+            canvas.remove(obj);
+        }
+    }
+
     useEffect(() => {
         const handleMouseDown = (event: TPointerEventInfo) => {
             const canvas = canvasRef.current as Canvas;
@@ -67,11 +74,18 @@ export default function App() {
             }
         }
 
+        const handleKeys = (e: KeyboardEvent) => {
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+                deleteSelectedObjects();
+            }
+        }
+
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             canvas.on("mouse:down", handleMouseDown);
             canvas.on('mouse:move', handleMouseMove);
             canvas.on('mouse:dblclick', handleMouseDoubleClick);
+            window.addEventListener("keyup", handleKeys);
         }
 
         return () => {
@@ -80,6 +94,7 @@ export default function App() {
                 canvas.off('mouse:down', handleMouseDown);
                 canvas.off('mouse:move', handleMouseMove);
                 canvas.off('mouse:dblclick', handleMouseDoubleClick);
+                window.removeEventListener("keyup", handleKeys);
             }
         };
     }, [canvasRef, selectedShapeType]);
@@ -115,7 +130,8 @@ export default function App() {
                         {renderShapeButton('polygon')}
                     </div>
                     <div className="actions">
-                        <span onClick={clearCanvas}>clear</span>
+                        <span onClick={deleteSelectedObjects}>clear selection</span>
+                        <span onClick={clearCanvas}>clear canvas</span>
                     </div>
                 </div>
             </div>
